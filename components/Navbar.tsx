@@ -14,7 +14,7 @@ import ThemeToggler from '@/components/ThemeToggler';
 
 const Navbar = () => {
   return (
-    <div className='bg-primary dark:bg-slate-700 text-white py-2 px-5 flex justify-between'>
+    <div className='bg-pink-500 dark:bg-slate-700 text-white py-2 px-5 flex justify-between'>
       <Link href='/'>
         <Image src={logo} alt='TraversyPress' width={40} />
       </Link>
