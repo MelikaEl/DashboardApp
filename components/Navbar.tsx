@@ -12,11 +12,12 @@ import {
 } from '@/components/ui/dropdown-menu';
 import ThemeToggler from '@/components/ThemeToggler';
 
+
 const Navbar = () => {
   return (
     <div className='bg-pink-500 dark:bg-slate-700 text-white py-2 px-5 flex justify-between'>
       <Link href='/'>
-        <Image src={logo} alt='TraversyPress' width={40} className='rounded'/>
+        <Image src={logo} alt='my logo' width={40} className='rounded'/>
       </Link>
 
       <div className='flex items-center'>
@@ -24,8 +25,8 @@ const Navbar = () => {
         <DropdownMenu>
           <DropdownMenuTrigger className='focus:outline-none'>
             <Avatar>
-              <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
-              <AvatarFallback className='text-black'>BT</AvatarFallback> {/* The Avatar Fallback in the Shadcn UI framework is a component designed to display alternative content when the primary avatar image fails to load. */}
+              <AvatarImage src='https://tse4.mm.bing.net/th?id=OIG3.mhAWBplTAQPZSL8.M_JK&pid=ImgGn' alt='@shadcn' />
+              <AvatarFallback className='text-black'>ME</AvatarFallback> {/* The Avatar Fallback in the Shadcn UI framework is a component designed to display alternative content when the primary avatar image fails to load. */}
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
