@@ -74,7 +74,7 @@ const AnalyticsChart = () => {
           <div style={{ width: '100%', height: 300 }}>
             <ResponsiveContainer>
               <LineChart width={1100} height={300} data={data}>
-                <Line type='monotone' dataKey={selection} stroke={`${isDark ? '#fbcfe8' : '#ec4899'}`} />
+                <Line type='monotone' dataKey={selection} stroke={`${isDark ? '#f9a8d4' : '#ec4899'}`} />
                 
                 <CartesianGrid stroke='#faf7f7' />
                 <XAxis dataKey='name' />
