@@ -10,22 +10,22 @@ export default function Home() {
         <DashboardCard
           title='Posts'
           count={100}
-          icon={<Newspaper className='text-slate-500' size={72} />}
+          icon={<Newspaper className='text-pink-500 dark:text-pink-300'  size={72} />}
         />
         <DashboardCard
           title='Categories'
           count={12}
-          icon={<Folder className='text-slate-500' size={72} />}
+          icon={<Folder className='text-pink-500   dark:text-pink-300' size={72} />}
         />
         <DashboardCard
           title='Users'
           count={750}
-          icon={<User className='text-slate-500' size={72} />}
+          icon={<User className='text-pink-500 dark:text-pink-300'  size={72} />}
         />
         <DashboardCard
           title='Comments'
           count={1200}
-          icon={<MessageCircle className='text-slate-500' size={72} />}
+          icon={<MessageCircle className='text-pink-500 dark:text-pink-300'  size={72} />}
         />
       </div>
       <AnalyticsChart />
