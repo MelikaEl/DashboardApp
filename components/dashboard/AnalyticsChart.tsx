@@ -25,7 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
+import { useTheme } from "next-themes"
 import data from '@/data/analytics';
 //The recharts shows how many users view the website monthly 
 const availableFilters = [
@@ -44,14 +44,16 @@ const availableFilters = [
 ]
 
 const AnalyticsChart = () => {
+  const { theme } = useTheme()
+  const isDark = theme === "dark"
 
   const [selection, setSelection] = useState("pv");
 
   return (
     <>
-      <Card>
+      <Card className="bg-pink-200 dark:bg-slate-800">
         <CardHeader>
-          <CardTitle>Analytics For This Year</CardTitle>
+          <CardTitle >Analytics For This Year</CardTitle>
           <CardDescription>Views Per Month</CardDescription>
           <Select onValueChange={setSelection} defaultValue="pv">
           <SelectTrigger className="w-96 h-8">
@@ -72,8 +74,9 @@ const AnalyticsChart = () => {
           <div style={{ width: '100%', height: 300 }}>
             <ResponsiveContainer>
               <LineChart width={1100} height={300} data={data}>
-                <Line type='monotone' dataKey={selection} stroke='#8884d8' />
-                <CartesianGrid stroke='#ccc' />
+                <Line type='monotone' dataKey={selection} stroke={`${isDark ? '#fbcfe8' : '#ec4899'}`} />
+                
+                <CartesianGrid stroke='#faf7f7' />
                 <XAxis dataKey='name' />
                 <YAxis />
               </LineChart>
