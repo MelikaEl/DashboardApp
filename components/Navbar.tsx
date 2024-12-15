@@ -25,7 +25,7 @@ const Navbar = () => {
           <DropdownMenuTrigger className='focus:outline-none'>
             <Avatar>
               <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
-              <AvatarFallback className='text-black'>BT</AvatarFallback>
+              <AvatarFallback className='text-black'>BT</AvatarFallback> {/* The Avatar Fallback in the Shadcn UI framework is a component designed to display alternative content when the primary avatar image fails to load. */}
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
