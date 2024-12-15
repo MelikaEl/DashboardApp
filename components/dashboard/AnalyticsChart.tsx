@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/select"
 
 import data from '@/data/analytics';
-
+//The recharts shows how many users view the website monthly 
 const availableFilters = [
   {
     value: "uv",

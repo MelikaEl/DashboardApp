@@ -1,5 +1,5 @@
 import { AnalyticsItem } from '@/types/analytics';
-
+//These data come from the recharts data. In the recharts Docs, it explains how to define the data that shown in the chart.
 const data: AnalyticsItem[] = [
   {
     name: 'Jan',
