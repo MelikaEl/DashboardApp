@@ -56,7 +56,7 @@ const AnalyticsChart = () => {
           <CardTitle >Analytics For This Year</CardTitle>
           <CardDescription>Views Per Month</CardDescription>
           <Select onValueChange={setSelection} defaultValue="pv">
-          <SelectTrigger className="w-96 h-8">
+          <SelectTrigger className="lg:w-96 lg:h-8">
             <SelectValue placeholder="Select Account" />
           </SelectTrigger>
           <SelectContent>
