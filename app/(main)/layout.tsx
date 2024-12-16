@@ -1,8 +1,50 @@
-import Navbar from '@/components/Navbar';
-import Sidebar from '@/components/Sidebar';
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
+
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
+    <>
+      <Navbar />
+
+      <SidebarProvider>
+        <AppSidebar />
+        <main>
+          <SidebarTrigger />
+          {children}
+        </main>
+      </SidebarProvider>
+    </>
+  );
+};
+
+export default MainLayout;
+
+
+
+/*
+return (
+    <>
+      <Navbar />
+
+      <SidebarProvider>
+        <AppSidebar />
+        <main>
+          <SidebarTrigger />
+          {children}
+        </main>
+      </SidebarProvider>
+    </>
+  );
+*/
+
+
+
+
+/*
+return (
     <>
       <Navbar />
       <div className='flex h-full'>
@@ -13,6 +55,4 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
     </>
   );
-};
-
-export default MainLayout;
+ */
