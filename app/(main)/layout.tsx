@@ -9,10 +9,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <Navbar />
 
-      <SidebarProvider>
+      <SidebarProvider defaultOpen={true}>
         <AppSidebar />
         <main>
-          <SidebarTrigger />
+          <SidebarTrigger className="lg:hidden"/>
           {children}
         </main>
       </SidebarProvider>
@@ -21,6 +21,25 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default MainLayout;
+
+
+/*
+return (
+    <div className="min-h-screen flex flex-col">
+    <Navbar />
+    <div className="flex-1 flex">
+      <SidebarProvider defaultOpen={true}>
+        <AppSidebar />
+        <main className="flex-1">
+          <SidebarTrigger className="lg:hidden" />
+          {children}
+        </main>
+      </SidebarProvider>
+    </div>
+  </div>
+  );
+*/
+
 
 
 
