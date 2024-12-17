@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
+import {AuthContextProvider} from '@/app/firebase/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,8 +26,10 @@ export default function RootLayout({
           enableSystem={true}
           storageKey='dashboard-theme'
         >
+          <AuthContextProvider>
           {children}
           <Toaster />
+          </AuthContextProvider>
         </ThemeProvider>
       </body>
     </html>
