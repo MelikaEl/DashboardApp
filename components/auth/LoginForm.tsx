@@ -53,9 +53,9 @@ const LoginForm = () => {
   };
 
   return (
-    <Card>
+    <Card className='bg-pink-200 dark:bg-slate-950 '>
       <CardHeader>
-        <CardTitle>Login</CardTitle>
+        <CardTitle className='dark:text-pink-300' >Login</CardTitle>
         <CardDescription>
           Log into your account with your credentials
         </CardDescription>
@@ -71,12 +71,12 @@ const LoginForm = () => {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
+                  <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-pink-300'>
                     Email
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className='bg-slate-100 dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible: ring-offset-0'
+                      className='bg-white dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible: ring-offset-0'
                       placeholder='Enter Email'
                       {...field}
                     />
@@ -91,13 +91,13 @@ const LoginForm = () => {
               name='password'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
+                  <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-pink-300'>
                     Password
                   </FormLabel>
                   <FormControl>
                     <Input
                       type='password'
-                      className='bg-slate-100 dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible: ring-offset-0'
+                      className='bg-white dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible: ring-offset-0'
                       placeholder='Enter Password'
                       {...field}
                     />
@@ -107,7 +107,7 @@ const LoginForm = () => {
               )}
             />
 
-            <Button className='w-full'>Sign In</Button>
+            <Button className='w-full dark:bg-pink-300'>Sign In</Button>
           </form>
         </Form>
       </CardContent>
