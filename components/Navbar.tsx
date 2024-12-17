@@ -13,12 +13,15 @@ import {
 import ThemeToggler from '@/components/ThemeToggler';
 
 
-const Navbar = () => {
+const Navbar = ({ children }: { children?: React.ReactNode }) => {
   return (
     <div className='bg-pink-500 dark:bg-slate-700 text-white py-2 px-5 flex justify-between'>
+      <div className="flex items-center gap-2">
+      {children} {/* Add this line to render the hamburger menu */}
       <Link href='/'>
         <Image src={logo} alt='my logo' width={40} className='rounded'/>
       </Link>
+      </div>
 
       <div className='flex items-center'>
         <ThemeToggler />
