@@ -61,9 +61,9 @@ const RegisterForm = () => {
   };
 
   return (
-    <Card>
+    <Card className='bg-pink-200 dark:bg-slate-950 '>
       <CardHeader>
-        <CardTitle>Register</CardTitle>
+        <CardTitle className='dark:text-pink-300'>Register</CardTitle>
         <CardDescription>Sign up by adding the info below</CardDescription>
       </CardHeader>
       <CardContent className='space-y-2'>
@@ -77,7 +77,7 @@ const RegisterForm = () => {
               name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
+                  <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-pink-300'>
                     Name
                   </FormLabel>
                   <FormControl>
@@ -97,7 +97,7 @@ const RegisterForm = () => {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
+                  <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-pink-300'>
                     Email
                   </FormLabel>
                   <FormControl>
@@ -117,7 +117,7 @@ const RegisterForm = () => {
               name='password'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
+                  <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-pink-300'>
                     Password
                   </FormLabel>
                   <FormControl>
@@ -138,7 +138,7 @@ const RegisterForm = () => {
               name='confirmPassword'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
+                  <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-pink-300'>
                     Confirm Password
                   </FormLabel>
                   <FormControl>
@@ -153,7 +153,7 @@ const RegisterForm = () => {
                 </FormItem>
               )}
             />
-            <Button className='w-full'>Sign In</Button>
+            <Button className='w-full dark:bg-pink-300'>Sign In</Button>
           </form>
         </Form>
       </CardContent>
