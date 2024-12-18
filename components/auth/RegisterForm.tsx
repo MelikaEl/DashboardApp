@@ -175,7 +175,7 @@ const RegisterForm = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      type="confirmPassword"
+                      type="password"
                       className="bg-slate-100 dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible: ring-offset-0"
                       placeholder="Enter Confirm Password"
                       {...field}
