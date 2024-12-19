@@ -4,11 +4,11 @@ export interface Post {
   body: string;
   author: string;
   date: string;
-  comments: PostComment[];
+  //comments: PostComment[];
 }
 
-export interface PostComment {
-  id: string;
-  text: string;
-  username: string;
-}
+// export interface PostComment {
+//   id: string;
+//   text: string;
+//   username: string;
+// }
