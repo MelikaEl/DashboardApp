@@ -1,4 +1,4 @@
-import { db } from '../../scripts/firebase-admin';
+import { db } from './firebase';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy } from 'firebase/firestore';
 import { Post } from '@/types/posts';
 

@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Table,
   TableBody,
@@ -8,16 +6,10 @@ import {
   TableHeader,
   TableRow,
   TableCaption,
-} from "@/components/ui/table";
-import Link from "next/link";
-import { Button } from "../ui/button";
-
-import posts from "@/data/posts";
-import { Post } from "@/types/posts";
-
-import { useEffect, useState } from "react";
-import { getPosts, deletePost } from "@/app/firebase/posts";
-import { useToast } from "@/components/ui/use-toast";
+} from '@/components/ui/table';
+import Link from 'next/link';
+import posts from '@/data/posts';
+import { Post } from '@/types/posts';
 
 interface PostsTableProps {
   limit?: number;
@@ -25,81 +17,45 @@ interface PostsTableProps {
 }
 
 const PostsTable = ({ limit, title }: PostsTableProps) => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const { toast } = useToast();
+  // Sort posts in dec order based on date
+  const sortedPosts: Post[] = [...posts].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
-  useEffect(() => {
-    loadPosts();
-  }, []);
-
-  const loadPosts = async () => {
-    try {
-      const fetchedPosts = await getPosts();
-      const filteredPosts = limit ? fetchedPosts.slice(0, limit) : fetchedPosts;
-      setPosts(filteredPosts);
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to load posts",
-      });
-    }
-  };
-
-  const handleDelete = async (id: string) => {
-    try {
-      await deletePost(id);
-      toast({
-        title: "Success",
-        description: "Post deleted successfully",
-      });
-      loadPosts();
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to delete post",
-      });
-    }
-  };
+  // Filter posts to limit
+  const filteredPosts = limit ? sortedPosts.slice(0, limit) : sortedPosts;
 
   return (
-    <div className="mt-10">
-      <h3 className="text-2xl mb-4 font-semibold">{title ? title : "Posts"}</h3>
+    <div className='mt-10'>
+      <h3 className='text-2xl mb-4 font-semibold'>{title ? title : 'Posts'}</h3>
       <Table>
+        <TableCaption>A list of recent posts</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Title</TableHead>
-            <TableHead className="hidden md:table-cell">Author</TableHead>
-            <TableHead className="hidden md:table-cell text-right">
+            <TableHead className='hidden md:table-cell'>Author</TableHead>
+            <TableHead className='hidden md:table-cell text-right'>
               Date
             </TableHead>
-            <TableHead>Actions</TableHead>
+            <TableHead>View</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {posts.map((post) => (
+          {filteredPosts.map((post) => (
             <TableRow key={post.id}>
               <TableCell>{post.title}</TableCell>
-              <TableCell className="hidden md:table-cell">
+              <TableCell className='hidden md:table-cell'>
                 {post.author}
               </TableCell>
-              <TableCell className="hidden md:table-cell text-right">
+              <TableCell className='text-right hidden md:table-cell'>
                 {post.date}
               </TableCell>
-              <TableCell className="space-x-2">
+              <TableCell>
                 <Link href={`/posts/edit/${post.id}`}>
-                  <Button variant="outline" size="sm">
+                  <button className='bg-pink-300 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded text-xs'>
                     Edit
-                  </Button>
+                  </button>
                 </Link>
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  onClick={() => handleDelete(post.id)}
-                >
-                  Delete
-                </Button>
               </TableCell>
             </TableRow>
           ))}
