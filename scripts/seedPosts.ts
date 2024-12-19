@@ -1,19 +1,30 @@
 const { addDoc, collection } = require('firebase/firestore');
-const { db } = require('../app/firebase/firebase');
-const posts = require('../data/posts').default;
+const { db } = require('./firebase-admin');
+
+const posts = [
+  {
+    title: "Test Post 1",
+    body: "This is test post 1",
+    author: "John Doe",
+    date: "2024-05-20",
+    comments: []
+  },
+  {
+    title: "Test Post 2",
+    body: "This is test post 2",
+    author: "Jane Doe",
+    date: "2024-05-21",
+    comments: []
+  }
+  // Add more test posts as needed
+];
 
 const seedPosts = async () => {
   try {
     const postsCollection = collection(db, 'posts');
     
     for (const post of posts) {
-      await addDoc(postsCollection, {
-        title: post.title,
-        body: post.body,
-        author: post.author,
-        date: post.date,
-        comments: post.comments || []
-      });
+      await addDoc(postsCollection, post);
       console.log(`Added post: ${post.title}`);
     }
     

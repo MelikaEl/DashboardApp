@@ -17,6 +17,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import posts from '@/data/posts';
 import { useToast } from '@/components/ui/use-toast';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { updatePost } from '@/app/firebase/posts';
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -41,6 +44,7 @@ interface PostEditPageProps {
 
 const PostEditPage = ({ params }: PostEditPageProps) => {
   const { toast } = useToast();
+  const router = useRouter();
 
   const post = posts.find((post) => post.id === params.id);
 
@@ -54,11 +58,21 @@ const PostEditPage = ({ params }: PostEditPageProps) => {
     },
   });
 
-  const handleSubmit = (data: z.infer<typeof formSchema>) => {
-    toast({
-      title: 'Post has been updated successfully',
-      description: `Updated by ${post?.author} on ${post?.date}`,
-    });
+  const handleSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
+      await updatePost(params.id, data);
+      toast({
+        title: "Success",
+        description: "Post updated successfully",
+      });
+      router.push('/posts');
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to update post",
+      });
+    }
   };
 
   return (
