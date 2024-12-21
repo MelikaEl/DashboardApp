@@ -1,9 +1,10 @@
 export interface Post {
   id: string;
-  title: string;
+  post:string;
+  // title: string;
   body: string;
-  author: string;
-  date: string;
+  // author: string;
+  // date: string;
   //comments: PostComment[];
 }
 
