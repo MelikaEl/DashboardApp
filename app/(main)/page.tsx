@@ -29,7 +29,8 @@ export default function Home() {
         />
       </div>
       <AnalyticsChart />
-      <PostsTable title='Latest Posts' limit={5} />
+      {/* <PostsTable title='Latest Posts' limit={5} /> */}
+      <PostsTable title='Latest Posts'  />
     </>
   );
 }
