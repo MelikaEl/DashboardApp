@@ -3,7 +3,7 @@ export interface Post {
   post:string;
   title: string;
   body: string;
-  // author: string;
+  author: string;
   // date: string;
   //comments: PostComment[];
 }
