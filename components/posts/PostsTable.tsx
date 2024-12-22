@@ -20,6 +20,8 @@ interface PostsTableProps {
   // limit?: number;
   title?: string;
   post?: string;
+  author?: string;
+
 }
 
 // const PostsTable = ({ limit, title }: PostsTableProps) => {
@@ -60,7 +62,7 @@ const PostsTable = ({ post, title }: PostsTableProps) => {
         <TableHeader>
           <TableRow>
             <TableHead>Title</TableHead>
-            {/* <TableHead className="hidden md:table-cell">Author</TableHead> */}
+            <TableHead className="hidden md:table-cell">Author</TableHead>
             {/* <TableHead className="hidden md:table-cell text-right">
               Date
             </TableHead> */}
@@ -71,9 +73,9 @@ const PostsTable = ({ post, title }: PostsTableProps) => {
           {posts.map((post) => (
             <TableRow key={post.id}>
               <TableCell>{post.title}</TableCell>
-              {/* <TableCell className="hidden md:table-cell">
+              <TableCell className="hidden md:table-cell">
                 {post.author}
-              </TableCell> */}
+              </TableCell>
               {/* <TableCell className="text-right hidden md:table-cell">
                 {post.date}
               </TableCell> */}
