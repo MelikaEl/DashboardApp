@@ -13,7 +13,8 @@ import Link from "next/link";
 // import posts from '@/data/posts';
 import { Post } from "@/types/posts";
 import { useEffect, useState } from "react";
-import { getPosts } from "@/app/firebase/firestoreoperations";
+// import { getPosts } from "@/app/firebase/firestoreoperations";
+import {subscribeToPosts} from "@/app/firebase/firestoreoperations"
 
 interface PostsTableProps {
   // limit?: number;
@@ -29,24 +30,23 @@ interface PostsTableProps {
 
 // Filter posts to limit
 // const filteredPosts = limit ? sortedPosts.slice(0, limit) : sortedPosts;
-const PostsTable = ({ post,title }: PostsTableProps) => {
+const PostsTable = ({ post, title }: PostsTableProps) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const fetchedPosts = await getPosts();
-        setPosts(fetchedPosts);
-      } catch (err) {
-        setError("Failed to fetch posts");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchPosts();
+    const unsubscribe = subscribeToPosts((fetchedPosts) => {
+      setPosts(fetchedPosts);
+      setLoading(false);
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
   }, []);
+
+  if (loading) return <div>Loading posts...</div>;
+  if (error) return <div>Error: {error}</div>;
   // Filter posts to limit if specified
   // const filteredPosts = limit ? posts.slice(0, limit) : posts;
   // if (loading) return <div>Loading posts...</div>;
@@ -70,7 +70,7 @@ const PostsTable = ({ post,title }: PostsTableProps) => {
         <TableBody>
           {posts.map((post) => (
             <TableRow key={post.id}>
-              <TableCell>{post.post}</TableCell>
+              <TableCell>{post.title}</TableCell>
               {/* <TableCell className="hidden md:table-cell">
                 {post.author}
               </TableCell> */}
