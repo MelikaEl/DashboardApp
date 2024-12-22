@@ -49,8 +49,8 @@ const PostEditPage = ({ params }: PostEditPageProps) => {
     defaultValues: {
       title: post?.title || '',
       body: post?.body || '',
-      author: post?.author || '',
-      date: post?.date || '',
+      // author: post?.author || '',
+      // date: post?.date || '',
     },
   });
 
