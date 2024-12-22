@@ -66,7 +66,7 @@ const PostsTable = ({ post, title }: PostsTableProps) => {
             {/* <TableHead className="hidden md:table-cell text-right">
               Date
             </TableHead> */}
-            {/* <TableHead>View</TableHead> */}
+            <TableHead>View</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
