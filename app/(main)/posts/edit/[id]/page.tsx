@@ -15,8 +15,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import posts from '@/data/posts';
 import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { getPost, updatePost } from '@/app/firebase/firestoreoperations';
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -28,9 +30,6 @@ const formSchema = z.object({
   author: z.string().min(1, {
     message: 'Author is required',
   }),
-  date: z.string().min(1, {
-    message: 'Date is required',
-  }),
 });
 
 interface PostEditPageProps {
@@ -41,25 +40,73 @@ interface PostEditPageProps {
 
 const PostEditPage = ({ params }: PostEditPageProps) => {
   const { toast } = useToast();
-
-  const post = posts.find((post) => post.id === params.id);
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: post?.title || '',
-      body: post?.body || '',
-      // author: post?.author || '',
-      // date: post?.date || '',
+      title: '',
+      body: '',
+      author: '',
     },
   });
 
-  const handleSubmit = (data: z.infer<typeof formSchema>) => {
-    toast({
-      title: 'Post has been updated successfully',
-      // description: `Updated by ${post?.author} on ${post?.date}`,
-    });
+  useEffect(() => {
+    async function loadPost() {
+      try {
+        const post = await getPost(params.id);
+        if (post) {
+          form.reset({
+            title: post.title,
+            body: post.body,
+            author: post.author,
+          });
+        } else {
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: 'Post not found',
+          });
+          router.push('/posts');
+        }
+      } catch (error) {
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: 'Failed to load post',
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadPost();
+  }, [params.id, form, router, toast]);
+
+  const handleSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
+      const success = await updatePost(params.id, data);
+      if (success) {
+        toast({
+          title: 'Success',
+          description: 'Post has been updated successfully',
+        });
+        router.push('/posts');
+      } else {
+        throw new Error('Failed to update post');
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to update post',
+      });
+    }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -119,26 +166,6 @@ const PostEditPage = ({ params }: PostEditPageProps) => {
                   <Input
                     className='bg-pink-200 dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0'
                     placeholder='Enter Author'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name='date'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
-                  Date
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    className='bg-pink-200 dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0'
-                    placeholder='Enter Date'
                     {...field}
                   />
                 </FormControl>
