@@ -1,4 +1,4 @@
-import { collection, onSnapshot, doc , getDoc, updateDoc,deleteDoc} from "firebase/firestore";
+import { collection, onSnapshot, doc , getDoc, updateDoc,deleteDoc,addDoc} from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
 import { Post } from "@/types/posts";
 
@@ -53,4 +53,17 @@ export async function deletePost(postId: string): Promise<boolean> {
    console.error("Error deleting post:", error);
    return false;
  }
+}
+
+
+// Create a new post
+export async function createPost(data: Omit<Post, 'id'>): Promise<boolean> {
+  try {
+    const postsRef = collection(db, "posts");
+   await addDoc(postsRef, data);
+    return true;
+  } catch (error) {
+    console.error("Error creating post:", error);
+    return false;
+  }
 }
