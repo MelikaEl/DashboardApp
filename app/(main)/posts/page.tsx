@@ -10,7 +10,7 @@ const PostsPage = () => {
 
       <div className="flex justify-between items-center ">
         <h3 className="text-2xl mb-4 dark:text-pink-300">Posts</h3>
-        <CreatePostButton />
+        <CreatePostButton link="/posts/create"/>
       </div>
       <PostsTable />
       <PostsPagination />
