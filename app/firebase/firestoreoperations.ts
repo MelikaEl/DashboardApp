@@ -1,4 +1,4 @@
-import { collection, onSnapshot, doc , getDoc, updateDoc} from "firebase/firestore";
+import { collection, onSnapshot, doc , getDoc, updateDoc,deleteDoc} from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
 import { Post } from "@/types/posts";
 
@@ -39,6 +39,18 @@ export async function updatePost(postId: string, data: Partial<Post>): Promise<b
    return true;
  } catch (error) {
    console.error("Error updating post:", error);
+   return false;
+ }
+}
+
+
+// Delete a post
+export async function deletePost(postId: string): Promise<boolean> {
+  try{ const postRef = doc(db, "posts", postId);
+   await deleteDoc(postRef);
+   return true;
+ } catch (error) {
+   console.error("Error deleting post:", error);
    return false;
  }
 }
