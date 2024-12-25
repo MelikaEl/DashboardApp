@@ -1,6 +1,7 @@
-import { collection, onSnapshot, doc , getDoc, updateDoc,deleteDoc,addDoc} from "firebase/firestore";
+import { collection, onSnapshot, doc , getDoc, updateDoc,deleteDoc,addDoc, setDoc} from "firebase/firestore";
 import { db } from "@/app/firebase/firebase";
 import { Post } from "@/types/posts";
+import { auth } from "@/app/firebase/firebase";
 
 // Real-time subscription to posts
 export function subscribeToPosts(callback: (posts: Post[]) => void) {
@@ -64,6 +65,35 @@ export async function createPost(data: Omit<Post, 'id'>): Promise<boolean> {
     return true;
   } catch (error) {
     console.error("Error creating post:", error);
+    return false;
+  }
+}
+
+// Get user profile data
+export async function getUserProfile(userId: string) {
+  try {
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      return docSnap.data();
+    }
+    return null;
+  } catch (error) {
+    console.error("Error getting user profile:", error);
+    return null;
+  }
+}
+
+
+// Create a new user in Firestore
+export async function createUserProfile(userId: string, userData: { name: string; email: string; avatarUrl?: string }) {
+  try {
+    const userRef = doc(db, "users", userId);
+    await setDoc(userRef, userData);
+    return true;
+  } catch (error) {
+    console.error("Error creating user profile:", error);
     return false;
   }
 }
