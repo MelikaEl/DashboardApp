@@ -26,6 +26,8 @@ interface PostsTableProps {
   title?: string;
   post?: string;
   author?: string;
+  currentPage: number;
+  postsPerPage: number;
 }
 
 // const PostsTable = ({ limit, title }: PostsTableProps) => {
@@ -36,7 +38,7 @@ interface PostsTableProps {
 
 // Filter posts to limit
 // const filteredPosts = limit ? sortedPosts.slice(0, limit) : sortedPosts;
-const PostsTable = ({ post, title }: PostsTableProps) => {
+const PostsTable = ({ currentPage, postsPerPage }: PostsTableProps) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -51,6 +53,12 @@ const PostsTable = ({ post, title }: PostsTableProps) => {
     // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
+
+  // Calculate pagination indexes
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
 
   if (loading) return <div>Loading posts...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -96,7 +104,7 @@ const PostsTable = ({ post, title }: PostsTableProps) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {posts.map((post) => (
+          {currentPosts.map((post) => (
             <TableRow key={post.id}>
               <TableCell>{post.title}</TableCell>
               <TableCell className="hidden md:table-cell">
