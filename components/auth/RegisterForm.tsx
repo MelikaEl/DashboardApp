@@ -27,6 +27,7 @@ import { useState } from "react";
 import { auth } from "@/app/firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useToast } from "@/components/ui/use-toast";
+import { createUserProfile } from "@/app/firebase/firestoreoperations";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -63,7 +64,68 @@ const RegisterForm = () => {
     },
   });
 
-  const handleSubmit = async (data: z.infer<typeof formSchema>) => {
+  // const handleSubmit = async (data: z.infer<typeof formSchema>) => {
+  //   if (data.password !== data.confirmPassword) {
+  //     toast({
+  //       variant: "destructive",
+  //       title: "Error",
+  //       description: "Passwords do not match",
+  //     });
+  //     return;
+  //   }
+
+
+  //   try {
+  //     setIsLoading(true);
+  //     await createUserWithEmailAndPassword(auth, data.email, data.password);
+  //     toast({
+  //       title: "Success",
+  //       description: "Account created successfully!",
+  //     });
+  //     router.push("/");
+  //   } catch (error: any) {
+  //     toast({
+  //       variant: "destructive",
+  //       title: "Error",
+  //       description: (error as Error).message,
+  //     });
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+
+  // const handleRegister = async (data: z.infer<typeof formSchema>) => {
+  //   try {
+  //     const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
+  //     const user = userCredential.user;
+  
+  //     // Create user profile in Firestore
+  //     const success = await createUserProfile(user.uid, {
+  //       name: data.name,
+  //       email: data.email,
+  //       avatarUrl: '', // You can set a default avatar URL or leave it empty
+  //     });
+  
+  //     if (success) {
+  //       toast({
+  //         title: "Success",
+  //         description: "User profile created successfully",
+  //       });
+  //       // Redirect or perform other actions
+  //     } else {
+  //       throw new Error("Failed to create user profile");
+  //     }
+  //   } catch (error) {
+  //     toast({
+  //       variant: "destructive",
+  //       title: "Error",
+  //       description: (error as Error).message,
+  //     });
+  //   }
+  // };
+
+  const handleRegister = async (data: z.infer<typeof formSchema>) => {
     if (data.password !== data.confirmPassword) {
       toast({
         variant: "destructive",
@@ -75,17 +137,30 @@ const RegisterForm = () => {
 
     try {
       setIsLoading(true);
-      await createUserWithEmailAndPassword(auth, data.email, data.password);
-      toast({
-        title: "Success",
-        description: "Account created successfully!",
+      const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
+      const user = userCredential.user;
+
+      // Create user profile in Firestore
+      const success = await createUserProfile(user.uid, {
+        name: data.name,
+        email: data.email,
+        avatarUrl: '', // You can set a default avatar URL or leave it empty
       });
-      router.push("/");
-    } catch (error: any) {
+
+      if (success) {
+        toast({
+          title: "Success",
+          description: "User profile created successfully",
+        });
+        router.push("/"); // Redirect to home or another page
+      } else {
+        throw new Error("Failed to create user profile");
+      }
+    } catch (error) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message,
+        description: (error as Error).message,
       });
     } finally {
       setIsLoading(false);
@@ -101,7 +176,7 @@ const RegisterForm = () => {
       <CardContent className="space-y-2">
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(handleSubmit)}
+            onSubmit={form.handleSubmit(handleRegister)}
             className="space-y-6"
           >
             <FormField
