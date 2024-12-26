@@ -144,7 +144,7 @@ const RegisterForm = () => {
       const success = await createUserProfile(user.uid, {
         name: data.name,
         email: data.email,
-        avatarUrl: '', // You can set a default avatar URL or leave it empty
+        avatarUrl: `https://api.dicebear.com/9.x/personas/svg?seed=${data.name}`, // You can set a default avatar URL or leave it empty
       });
 
       if (success) {
