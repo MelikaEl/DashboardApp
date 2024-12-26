@@ -36,7 +36,7 @@ const Sidebar = () => {
         <CommandGroup heading="Settings">
           <CommandItem>
             <User className="mr-2 h-4 w-4" />
-            <span className="text-pink-500 dark:text-pink-300">Profile</span>
+            <Link href="/profile" className="text-pink-500 dark:text-pink-300">Profile</Link>
           </CommandItem>
         </CommandGroup>
       </CommandList>
