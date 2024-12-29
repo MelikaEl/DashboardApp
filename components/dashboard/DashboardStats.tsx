@@ -49,16 +49,8 @@ The useEffect hook with the dependency array [posts] ensures that the unique aut
         count={750}
         icon={<User className="text-pink-500 dark:text-pink-300" size={72} />}
       />
-      <DashboardCard
-        title="Comments"
-        count={1200}
-        icon={
-          <MessageCircle
-            className="text-pink-500 dark:text-pink-300"
-            size={72}
-          />
-        }
-      />
+     
+       
     </div>
   );
 };
