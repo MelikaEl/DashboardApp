@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { subscribeToPosts } from "@/app/firebase/firestoreoperations";
 import DashboardCard from "./DashboardCard";
-import { Folder, MessageCircle, Newspaper, User } from "lucide-react";
+import {  MessageCircle, Newspaper, User ,UserRoundPlus} from "lucide-react";
 
 interface DashboardStatsProps {
   posts?: { author: string }[];
@@ -42,7 +42,7 @@ The useEffect hook with the dependency array [posts] ensures that the unique aut
       <DashboardCard
         title="Authors"
         count={authorsCount}
-        icon={<Folder className="text-pink-500 dark:text-pink-300" size={72} />}
+        icon={<UserRoundPlus className="text-pink-500 dark:text-pink-300" size={72} />}
       />
       <DashboardCard
         title="Users"
