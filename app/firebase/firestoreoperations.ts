@@ -97,3 +97,14 @@ export async function createUserProfile(userId: string, userData: { name: string
     return false;
   }
 }
+
+
+// Add this new function to get users count
+export function subscribeToUsers(callback: (count: number) => void) {
+  const unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
+    callback(snapshot.size);
+  });
+
+  return unsubscribe;
+}
+

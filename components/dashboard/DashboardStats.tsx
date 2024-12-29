@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { subscribeToPosts } from "@/app/firebase/firestoreoperations";
+import { subscribeToPosts, subscribeToUsers } from "@/app/firebase/firestoreoperations";
 import DashboardCard from "./DashboardCard";
-import {  MessageCircle, Newspaper, User ,UserRoundPlus} from "lucide-react";
+import {  Newspaper, User ,UserRoundPlus} from "lucide-react";
 
 interface DashboardStatsProps {
   posts?: { author: string }[];
@@ -12,13 +12,21 @@ interface DashboardStatsProps {
 const DashboardStats = ({ posts }: DashboardStatsProps) => {
   const [postsCount, setPostsCount] = useState(0);
   const [authorsCount, setAuthorsCount] = useState(0);
+  const [usersCount, setUsersCount] = useState(0);//numbers of the users that are stored in the firestore database as user's collection
 
   useEffect(() => {
-    const unsubscribe = subscribeToPosts((posts) => {
+    const unsubscribePosts = subscribeToPosts((posts) => {
       setPostsCount(posts.length);
     });
 
-    return () => unsubscribe();
+    const unsubscribeUsers = subscribeToUsers((count) => {
+      setUsersCount(count);
+    });
+
+    return () => {
+      unsubscribePosts();
+      unsubscribeUsers();
+    };
   }, []);
 
   useEffect(() => {
@@ -46,7 +54,7 @@ The useEffect hook with the dependency array [posts] ensures that the unique aut
       />
       <DashboardCard
         title="Users"
-        count={750}
+        count={usersCount}
         icon={<User className="text-pink-500 dark:text-pink-300" size={72} />}
       />
      
