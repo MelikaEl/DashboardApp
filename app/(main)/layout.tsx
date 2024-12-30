@@ -3,8 +3,6 @@ import Sidebar from "@/components/Sidebar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 
-// import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-// import { AppSidebar } from "@/components/app-sidebar";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
