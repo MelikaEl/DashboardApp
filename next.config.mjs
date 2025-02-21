@@ -1,21 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    experimental: {
-      middleware: true,
-    },
-  };
-  
-  export default nextConfig;
+const nextConfig = {};
 
-
-
-
-
-
-
-
-
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {};
-
-// export default nextConfig;
+export default nextConfig;
